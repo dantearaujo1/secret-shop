@@ -15,25 +15,28 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity(name="Product")
-@Table(name="product")
-class Product{
+@Entity(name="Sale")
+@Table(name="sale")
+class Sale{
 
   @Id
-  @Column(name="id_product")
+  @Column(name="id_sale")
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name="price", precision=16, scale=4)
-  private BigDecimal price;
-
-  @Column(name="description", length=255, nullable=true)
-  private String description;
-
-  @OneToMany(mappedBy = "product")
-  private List<SaleProduct> sales;
+  @ManyToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name="id_seller")
+  private Seller seller;
 
   @ManyToOne(fetch= FetchType.LAZY)
-  @JoinColumn(name="id_product_cat")
-  private ProductCat category;
+  @JoinColumn(name="id_client")
+  private Client client;
+
+  @ManyToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name="id_branch")
+  private Branch branch;
+
+  @OneToMany(mappedBy = "sale")
+  private List<SaleProduct> sale_product;
+
 }
