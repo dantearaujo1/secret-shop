@@ -20,6 +20,9 @@ class Branch{
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
+  @Column(name="name")
+  private String name;
+
   @OneToMany(mappedBy = "branch")
   private List<Stock> stock;
 

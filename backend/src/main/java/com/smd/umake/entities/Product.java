@@ -27,8 +27,15 @@ class Product{
   @Column(name="price", precision=16, scale=4)
   private BigDecimal price;
 
+  @Column(name="name", length=100, nullable=false)
+  private String name;
+
   @Column(name="description", length=255, nullable=true)
   private String description;
+
+  @Column(name="brand", length=50, nullable=false)
+  private String brand;
+
 
   @OneToMany(mappedBy = "product")
   private List<SaleProduct> sales;
