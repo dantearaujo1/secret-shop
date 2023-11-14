@@ -23,7 +23,7 @@ class SaleProductKey implements Serializable{
 
 @Entity(name="SaleProduct")
 @Table(name="sale_product")
-class SaleProduct{
+public class SaleProduct{
 
   @EmbeddedId
   SaleProductKey id;

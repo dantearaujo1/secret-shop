@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity(name="Branch")
 @Table(name="branch")
-class Branch{
+public class Branch{
 
   @Id
   @Column(name="id_branch")
@@ -26,4 +26,14 @@ class Branch{
   @OneToMany(mappedBy = "branch")
   private List<Stock> stock;
 
+  @Column(name="CEP")
+  private String CEP;
+  @Column(name="street")
+  private String street;
+  @Column(name="number")
+  private int number;
+  @Column(name="city")
+  private String city;
+  @Column(name="state")
+  private String state;
 }

@@ -23,7 +23,7 @@ class StockKey implements Serializable{
 
 @Entity(name="Stock")
 @Table(name="stock")
-class Stock{
+public class Stock{
 
   @EmbeddedId
   StockKey id;

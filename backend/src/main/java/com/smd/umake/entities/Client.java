@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 
 @Entity(name="Client")
 @Table(name="client")
-class Client{
+public class Client{
 
   @Id
   @Column(name="id_client")
