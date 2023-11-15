@@ -1,8 +1,10 @@
 package com.smd.umake.entities;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,6 +38,7 @@ public class ProductCat{
   @Column(name="description", length=255, nullable=true)
   private String description;
 
+  @JsonManagedReference
   @OneToMany(mappedBy="category",cascade=CascadeType.ALL)
   private Set<Product> products = new HashSet<>();
 }
