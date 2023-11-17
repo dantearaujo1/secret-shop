@@ -8,36 +8,30 @@ LoremIpsum
 
 ### Pré-requisitos
 
+
 O que você vai precisar ter/fazer antes de instalar o programa.
 
-* You need this
-* And you need this
-* Oh, and don't forget this
+* **Tenha o Docker instalado**
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Projeto  | Projeto  |
-| Projeto  | Projeto  |
 
 ### Instalação
 
-Passo a Passo
+* Com docker Instalado:
 
-```
-$ First step
-$ Another step
-$ Final step
-```
+    vá no seu terminal e execute apenas:
+
+    ```sh
+    docker-compose up
+    ```
+
+    pronto, o servidor backend está rodando em um container na porta 6969 e o banco em outro
+    container na porta 5432
 
 ## Uso
 
-Alguns exemplos de comandos e/ou tarefas úteis.
+Acessando o back:
+No seu navegador digite http://locahost:6969/api/v1/product
 
-```
-$ First example
-$ Second example
-$ And keep this in mind
-```
 
 ### Branches
 
