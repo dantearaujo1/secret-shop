@@ -39,7 +39,7 @@ public class ProductController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
-  @GetMapping("")
+  @GetMapping("/")
   public ResponseEntity<Product> getProductById(@RequestParam("name") String name) throws Exception {
     Product p = productService.getProductByName(name);
     if (p == null){
@@ -48,7 +48,7 @@ public class ProductController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<List<Product>> getProducts() throws Exception {
     List<Product> p = productService.getProducts();
     if (p == null){
