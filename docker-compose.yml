@@ -9,13 +9,13 @@ services:
     depends_on:
       - db
     expose:
-      - 6969
+      - ${API_PORT_EXPOSED}
     ports:
-      - 6969:6969
+      - ${API_PORT_EXPOSED}:${API_PORT}
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/umake
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
@@ -23,6 +23,8 @@ services:
     container_name: db
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=umake
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ./backend/backup:/backup

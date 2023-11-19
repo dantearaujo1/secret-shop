@@ -9,8 +9,7 @@ COPY pom.xml .
 RUN mvn clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r target/
 COPY src ./src
 
-# RUN mvn clean package -Dmaven.test.skip
-# RUN mvn compile
+# Criando jar para executar
 RUN mvn package -Dmaven.test.skip
 ENTRYPOINT ["java", "-jar", "./target/may-k-shop.jar"]
 EXPOSE 6969
