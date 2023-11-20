@@ -41,8 +41,14 @@ public class BranchService {
     return null;
   }
   public Branch createBranch(BranchDTO newBranch) throws Exception {
+    int number = Integer.valueOf(newBranch.getNumber());
     Branch branch = new Branch();
     branch.setName(newBranch.getName());
+    branch.setCEP(newBranch.getCEP());
+    branch.setCity(newBranch.getCity());
+    branch.setState(newBranch.getState());
+    branch.setStreet(newBranch.getStreet());
+    branch.setNumber(number);
     return branchRepository.save(branch);
   }
 
