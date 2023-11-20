@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,20 +27,21 @@ public class StockService {
   @Autowired
   private BranchRepository branchRepository;
 
-  public List<Stock> getProducts(String branchID) throws Exception {
+  public List<Product> getProducts(String branchID) throws Exception {
     try{
       UUID id = UUID.fromString(branchID);
       List<Stock> stocks = stockRepository.findAllByBranchId(id);
-      return stocks;
+      return stocks.stream().map(Stock::getProduct).collect(Collectors.toList());
+
     } catch (IllegalArgumentException e){
       return null;
     }
   }
-  public List<Stock> getBranchs(String productID) throws Exception {
+  public List<Branch> getBranchs(String productID) throws Exception {
     try{
       UUID id = UUID.fromString(productID);
       List<Stock> stocks = stockRepository.findAllByProductId(id);
-      return stocks;
+      return stocks.stream().map(Stock::getBranch).collect(Collectors.toList());
     } catch (IllegalArgumentException e){
       return null;
     }

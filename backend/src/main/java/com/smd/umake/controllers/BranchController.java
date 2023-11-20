@@ -54,6 +54,11 @@ public class BranchController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
+  @GetMapping("/{id}/stock")
+  public ResponseEntity<List<Product>> getProductsFromBranch(@PathVariable String id) throws Exception {
+    List<Product> products = stockService.getProducts(id);
+    return new ResponseEntity<> (products,HttpStatus.OK);
+  }
   @GetMapping("")
   public ResponseEntity<List<Branch>> getBranchs() throws Exception {
     List<Branch> p = branchService.getBranchs();
