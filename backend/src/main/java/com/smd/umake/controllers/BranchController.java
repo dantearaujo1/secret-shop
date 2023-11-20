@@ -18,8 +18,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.smd.umake.dtos.BranchDTO;
 import com.smd.umake.entities.Branch;
 import com.smd.umake.entities.Product;
+import com.smd.umake.entities.Stock;
 import com.smd.umake.services.BranchService;
 import com.smd.umake.services.ProductService;
+import com.smd.umake.services.StockService;
 
 @RestController
 @RequestMapping("/api/v1/branch")
@@ -30,7 +32,7 @@ public class BranchController{
   @Autowired
   private ProductService productService;
   @Autowired
-  private ProductService productService;
+  private StockService stockService;
 
   @GetMapping("/{id}")
   public ResponseEntity<Branch> getBranchById(@PathVariable String id) throws Exception {
@@ -68,30 +70,28 @@ public class BranchController{
   }
   @PostMapping("/")
   public ResponseEntity<Branch> addBranch(@RequestBody BranchDTO  newBranch) throws Exception{
-    Branch cli = branchService.createBranch(newBranch);
-    if (cli == null){
+    Branch bra = branchService.createBranch(newBranch);
+    if (bra == null){
       throw new Exception();
     } else {
-      return new ResponseEntity<Branch>(cli, HttpStatus.CREATED);
+      return new ResponseEntity<Branch>(bra, HttpStatus.CREATED);
     }
 
   }
   @PostMapping("/add/product")
-  public ResponseEntity<Branch> addProduct(@RequestBody ObjectNode  json) throws Exception{
+  public ResponseEntity<Stock> addProduct(@RequestBody ObjectNode  json) throws Exception{
     String branchId = json.get("branchId").asText();
     String productId = json.get("productId").asText();
+    int quantity = json.get("quantity").asInt();
 
-    // INFO: Aparentemente n preciso criar os objetos ja que tenho
-    // os ids
     Branch branch = branchService.getBranchById(branchId);
     Product product = productService.getProductById(productId);
-    // branch.getStock().getProductadd(product);
-    // if (cli == null){
-    //   throw new Exception();
-    // } else {
-    //   return new ResponseEntity<Branch>(cli, HttpStatus.CREATED);
-    // }
-    return null;
+    Stock entry = stockService.addProduct(branchId,productId,quantity);
+    if (entry == null){
+      throw new Exception();
+    } else {
+      return new ResponseEntity<Stock>(entry, HttpStatus.CREATED);
+    }
   }
   // @PatchMapping("/{id}")
   // public ResponseEntity<Branch> updatePartialBranchById(@PathVariable UUID id, @RequestBody BranchDTO updatedData) throws Exception {

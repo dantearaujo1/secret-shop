@@ -6,13 +6,15 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
-class StockKey implements Serializable{
+public class StockKey implements Serializable{
   @Column(name="id_product")
   UUID product_id;
 

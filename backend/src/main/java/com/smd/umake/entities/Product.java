@@ -1,10 +1,13 @@
 package com.smd.umake.entities;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,6 +54,10 @@ public class Product{
 
   @OneToMany(mappedBy = "product")
   private List<SaleProduct> sales;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private Set<Stock> stock = new HashSet<>();
 
   @JsonBackReference
   @ManyToOne(fetch= FetchType.LAZY)

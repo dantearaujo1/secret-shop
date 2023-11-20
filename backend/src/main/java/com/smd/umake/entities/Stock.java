@@ -1,5 +1,7 @@
 package com.smd.umake.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -24,12 +26,14 @@ public class Stock{
   StockKey id;
 
   @ManyToOne
-  @MapsId("id")
+  @MapsId("branch_id")
+  @JsonBackReference
   @JoinColumn(name = "id_branch")
   Branch branch;
 
   @ManyToOne
-  @MapsId("id")
+  @MapsId("product_id")
+  @JsonBackReference
   @JoinColumn(name = "id_product")
   Product product;
 
