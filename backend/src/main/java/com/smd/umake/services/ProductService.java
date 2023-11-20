@@ -21,14 +21,24 @@ public class ProductService{
   @Autowired
   private ProductCatRepository categoryRepository;
 
-  public Product getProductById(UUID id) throws Exception {
-    Optional<Product> oProduct = productRepository.findById(id);
-    return oProduct.get();
+  public Product getProductById(String branchId) throws Exception {
+    try{
+      UUID id = UUID.fromString(branchId);
+      Optional<Product> product = productRepository.findById(id);
+      if(product.isPresent()){
+        return product.get();
+      }
+      return null;
+    } catch (IllegalArgumentException e){
+      return null;
+    }
   }
   public Product getProductByName(String name) throws Exception {
-    // WARN: tem que checar se n ta nulo
     Optional<Product> oProduct = productRepository.findDistinctByName(name);
-    return oProduct.get();
+    if (oProduct.isPresent()){
+      return oProduct.get();
+    }
+    return null;
   }
   public List<Product> getProducts() throws Exception {
     List<Product> products = productRepository.findAll();
