@@ -47,8 +47,12 @@ public class SaleService {
   public List<Sale> getSalesBySeller(String sellerId) throws Exception {
     try{
       UUID id = UUID.fromString(sellerId);
-      List<Sale> sales = saleRepository.findAllBySeller(id);
-      return sales;
+      Optional<Seller> seller = sellerRepository.findById(id);
+      if (seller.isPresent()){
+        List<Sale> sales = saleRepository.findAllBySeller(seller.get());
+        return sales;
+      }
+      return null;
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
@@ -56,8 +60,12 @@ public class SaleService {
   public List<Sale> getSalesByClient(String clientId) throws Exception {
     try{
       UUID id = UUID.fromString(clientId);
-      List<Sale> sales = saleRepository.findAllByClient(id);
-      return sales;
+      Optional<Client> cli = clientRepository.findById(id);
+      if (cli.isPresent()){
+        List<Sale> sales = saleRepository.findAllByClient(cli.get());
+        return sales;
+      }
+      return null;
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
@@ -65,8 +73,12 @@ public class SaleService {
   public List<Sale> getSalesByBranch(String branchId) throws Exception {
     try{
       UUID id = UUID.fromString(branchId);
-      List<Sale> sales = saleRepository.findAllByBranch(id);
-      return sales;
+      Optional<Branch> branch = branchRepository.findById(id);
+      if (branch.isPresent()){
+        List<Sale> sales = saleRepository.findAllByBranch(branch.get());
+        return sales;
+      }
+      return null;
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
