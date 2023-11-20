@@ -1,7 +1,10 @@
 package com.smd.umake.entities;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,8 +34,9 @@ public class Branch{
   @Column(name="name")
   private String name;
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "branch")
-  private List<Stock> stock;
+  private Set<Stock> stock = new HashSet<>();
 
   @Column(name="CEP")
   private String CEP;

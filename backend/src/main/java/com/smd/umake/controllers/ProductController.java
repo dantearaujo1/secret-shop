@@ -31,7 +31,7 @@ public class ProductController{
   private ProductCategoryService categoryService;
 
   @GetMapping("/{id}")
-  public ResponseEntity<Product> getProductById(@PathVariable UUID id) throws Exception {
+  public ResponseEntity<Product> getProductById(@PathVariable String id) throws Exception {
     Product p = productService.getProductById(id);
     if (p == null){
       throw new Exception();
@@ -40,7 +40,7 @@ public class ProductController{
     }
   }
   @GetMapping("/")
-  public ResponseEntity<Product> getProductById(@RequestParam("name") String name) throws Exception {
+  public ResponseEntity<Product> getProductByName(@RequestParam("name") String name) throws Exception {
     Product p = productService.getProductByName(name);
     if (p == null){
       throw new Exception();
