@@ -1,5 +1,6 @@
 package com.smd.umake.entities;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +43,9 @@ public class Sale{
   @ManyToOne(fetch= FetchType.LAZY)
   @JoinColumn(name="id_branch")
   private Branch branch;
+
+  @Column(name="total")
+  private BigDecimal total;
 
   @OneToMany(mappedBy = "sale")
   private List<SaleProduct> sale_product;
