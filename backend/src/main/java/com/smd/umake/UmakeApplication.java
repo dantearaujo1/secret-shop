@@ -15,9 +15,4 @@ public class UmakeApplication {
 		SpringApplication.run(UmakeApplication.class, args);
 	}
 
-  @GetMapping
-  public List<String> makeUps(){
-    return List.of("MAC","SEPHORA","Quemdisseberenice");
-  }
-
 }
