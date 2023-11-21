@@ -52,7 +52,7 @@ public class SaleService {
         List<Sale> sales = saleRepository.findAllBySeller(seller.get());
         return sales;
       }
-      return null;
+      throw new Exception("Não foi encontrado nenhum Vendedor.");
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
@@ -65,7 +65,7 @@ public class SaleService {
         List<Sale> sales = saleRepository.findAllByClient(cli.get());
         return sales;
       }
-      return null;
+      throw new Exception("Não foi encontrado nenhum Cliente.");
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
@@ -78,7 +78,7 @@ public class SaleService {
         List<Sale> sales = saleRepository.findAllByBranch(branch.get());
         return sales;
       }
-      return null;
+      throw new Exception("Não foi encontrado nenhuma Filial.");
     } catch (IllegalArgumentException e) {
       throw new Exception("Não é um id válido!");
     }
@@ -112,6 +112,20 @@ public class SaleService {
 
     Sale dSale = saleRepository.save(sale);
     return dSale;
+  }
+
+  public String deleteSale(String saleID) throws Exception {
+    try{
+      UUID id = UUID.fromString(saleID);
+      Optional<Sale> sale = saleRepository.findById(id);
+      if (sale.isPresent()){
+        saleRepository.delete(sale.get());
+        return "Sale deleted!";
+      }
+      return "Sale not found!";
+    } catch (IllegalArgumentException e) {
+      throw new Exception("Não é um id válido!");
+    }
   }
 
 }

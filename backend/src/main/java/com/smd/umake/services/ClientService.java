@@ -94,4 +94,26 @@ public class ClientService {
 
   }
 
+  public Client updatePartialClient(String clientID, ClientDTO updatedClient) throws Exception{
+    try{
+      UUID id = UUID.fromString(clientID);
+      Optional<Client> client = clientRepository.findById(id);
+      if (client.isPresent()){
+
+        // TODO: IMPLEMENT
+        client.get().setName(updatedClient.getName());
+        // client.get().setContacts(updatedClient.getName());
+
+
+        // WARN: Parece que estamos salvando duas vezes o client quando na verdade queremos dar um update dos contatos dele
+        // clientRepository.save(dClient);
+
+        return client.get();
+      }
+      throw new Exception("Client not found!");
+    } catch (IllegalArgumentException e){
+      return null;
+    }
+  }
+
 }
