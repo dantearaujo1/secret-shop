@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.smd.umake.dtos.ProductDTO;
 import com.smd.umake.entities.Product;
 import com.smd.umake.entities.ProductCat;
+import com.smd.umake.exceptions.ArgumentInvalidException;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.ProductCatRepository;
 import com.smd.umake.repositories.ProductRepository;
 
@@ -28,9 +30,9 @@ public class ProductService{
       if(product.isPresent()){
         return product.get();
       }
-      return null;
+      throw new EntityNotFoundException("Produto com esse id não encontrado!");
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("Id não é válido!");
     }
   }
   public Product getProductByName(String name) throws Exception {
@@ -38,7 +40,7 @@ public class ProductService{
     if (oProduct.isPresent()){
       return oProduct.get();
     }
-    return null;
+    throw new EntityNotFoundException("Produto com esse nome não encontrado!");
   }
   public List<Product> getProducts() throws Exception {
     List<Product> products = productRepository.findAll();
@@ -58,14 +60,20 @@ public class ProductService{
       return oProduct;
     }
 
-    UUID categoryUUID = UUID.fromString(categoryID);
-    Optional<ProductCat> category = categoryRepository.findById(categoryUUID);
-    if (category.isPresent()){
-      prod.setCategory(category.get());
-    }
+    try {
+      UUID categoryUUID = UUID.fromString(categoryID);
+      Optional<ProductCat> category = categoryRepository.findById(categoryUUID);
+      if (category.isPresent()){
+        prod.setCategory(category.get());
+      } else{
+        throw new EntityNotFoundException("Categoria com esse id não encontrada!");
+      }
 
-    Product oProduct = productRepository.save(prod);
-    return oProduct;
+      Product oProduct = productRepository.save(prod);
+      return oProduct;
+    } catch ( IllegalArgumentException e ){
+      throw new ArgumentInvalidException("ID da categoria em formato inválido!");
+    }
   }
 
   public Product updateProduct(UUID id, ProductDTO newProduct) throws Exception {
@@ -92,7 +100,7 @@ public class ProductService{
       productRepository.delete(oProduct.get());
       return "Product deleted!";
     } else {
-      return "Could't delete the product with this id!";
+      throw new EntityNotFoundException("Não foi encontrado nenhuma entidade com esse id!");
     }
   }
 
