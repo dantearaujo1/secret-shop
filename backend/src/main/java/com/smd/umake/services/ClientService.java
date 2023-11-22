@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.smd.umake.dtos.ClientDTO;
 import com.smd.umake.entities.Client;
 import com.smd.umake.entities.ClientContact;
+import com.smd.umake.exceptions.ArgumentInvalidException;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.ClientRepository;
 
 @Service
@@ -30,9 +32,9 @@ public class ClientService {
       if(client.isPresent()){
         return client.get();
       }
-      return null;
+      throw new EntityNotFoundException("Cliente não encontrado!");
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("Id não é válido!");
     }
   }
   public Client getClientByName(String name) throws Exception {
@@ -40,7 +42,7 @@ public class ClientService {
     if (oClient.isPresent()){
       return oClient.get();
     }
-    return null;
+    throw new EntityNotFoundException("Cliente não encontrado!");
   }
   public Client createClient(ClientDTO newClient) throws Exception {
     Client client = new Client();
@@ -49,7 +51,6 @@ public class ClientService {
 
     List<ClientContact> contacts = this.createContact(dClient.getId().toString(),newClient.getDdd(),newClient.getPhone());
 
-    // WARN: Parece que estamos salvando duas vezes o client quando na verdade queremos dar um update dos contatos dele
     dClient.setContacts(contacts);
     clientRepository.save(dClient);
 
@@ -64,16 +65,15 @@ public class ClientService {
           clientRepository.delete(oClient.get());
           return "Client deleted!";
         } else {
-          return "Could't delete the client with this id!";
+          throw new EntityNotFoundException("Cliente não encontrado!");
         }
 
     } catch (IllegalArgumentException e){
-      throw new Exception("There was a problem with the delete operation!");
+      throw new ArgumentInvalidException("Id não é válido!");
     }
   }
 
   public List<ClientContact> createContact(String clientID, List<String> ddd, List<String> phoneNumber) throws Exception {
-    // TODO: Store ClientContact in database
     try{
 
       UUID id = UUID.fromString(clientID);
@@ -86,10 +86,12 @@ public class ClientService {
           contacts.add(contact);
         }
 
+      } else{
+        throw new EntityNotFoundException("Cliente não encontrado!");
       }
       return contacts;
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("ID não válido!");
     }
 
   }
@@ -110,9 +112,9 @@ public class ClientService {
 
         return client.get();
       }
-      throw new Exception("Client not found!");
+      throw new EntityNotFoundException("Vendedor não encontrado!");
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("ID não válido!");
     }
   }
 
