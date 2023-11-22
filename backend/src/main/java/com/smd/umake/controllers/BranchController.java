@@ -40,6 +40,7 @@ public class BranchController{
     if (p == null){
       // WARN: Aqui a gente devia enviar uma resposta com o status correto
       // de falha, no caso :)!
+      // TODO: Usar entity not found Exception
       throw new Exception("Não encontramos o branche!");
     } else {
       return new ResponseEntity<> (p,HttpStatus.OK);
@@ -49,6 +50,7 @@ public class BranchController{
   public ResponseEntity<Branch> getBranchByName(@RequestParam("name") String name) throws Exception {
     Branch p = branchService.getBranchByName(name);
     if (p == null){
+      // TODO: Usar entity not found Exception
       throw new Exception();
     } else {
       return new ResponseEntity<> (p,HttpStatus.OK);

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.smd.umake.dtos.SellerDTO;
 import com.smd.umake.entities.Seller;
+import com.smd.umake.exceptions.ArgumentInvalidException;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.SellerRepository;
 
 @Service
@@ -28,9 +30,9 @@ public class SellerService {
       if(seller.isPresent()){
         return seller.get();
       }
-      return null;
+      throw new EntityNotFoundException("Vendedor não encontrado!");
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException(e.getMessage() + " Id não é válido!");
     }
   }
   public Seller getSellerByName(String name) throws Exception {
@@ -38,7 +40,7 @@ public class SellerService {
     if (oSeller.isPresent()){
       return oSeller.get();
     }
-    return null;
+    throw new EntityNotFoundException("Vendedor não encontrado!");
   }
   public Seller createSeller(SellerDTO newSeller) throws Exception {
     Seller seller = new Seller();
@@ -54,11 +56,11 @@ public class SellerService {
           sellerRepository.delete(oSeller.get());
           return "Seller deleted!";
         } else {
-          return "Could't delete the seller with this id!";
+          throw new EntityNotFoundException("Vendedor não encontrado!");
         }
 
     } catch (IllegalArgumentException e){
-      throw new Exception("There was a problem with the delete operation!");
+      throw new ArgumentInvalidException("Id não válido!");
     }
   }
 

@@ -13,6 +13,8 @@ import com.smd.umake.entities.Branch;
 import com.smd.umake.entities.Product;
 import com.smd.umake.entities.Stock;
 import com.smd.umake.entities.StockKey;
+import com.smd.umake.exceptions.ArgumentInvalidException;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.BranchRepository;
 import com.smd.umake.repositories.ProductRepository;
 import com.smd.umake.repositories.StockRepository;
@@ -34,7 +36,7 @@ public class StockService {
       return stocks.stream().map(Stock::getProduct).collect(Collectors.toList());
 
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("Foi passado um id inválido");
     }
   }
   public List<Branch> getBranchs(String productID) throws Exception {
@@ -43,7 +45,7 @@ public class StockService {
       List<Stock> stocks = stockRepository.findAllByProductId(id);
       return stocks.stream().map(Stock::getBranch).collect(Collectors.toList());
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("Foi passado um id inválido");
     }
   }
   public Stock addProduct(String branchID, String productID, int quantity) throws Exception {
@@ -51,9 +53,9 @@ public class StockService {
       UUID bID = UUID.fromString(branchID);
       UUID pID = UUID.fromString(productID);
       Optional<Branch> b = branchRepository.findById(bID);
-      Branch branch = b.orElseThrow( () -> new Exception("Filial não encontrada") );
+      Branch branch = b.orElseThrow( () -> new EntityNotFoundException("Filial não encontrada") );
       Optional<Product> p = productRepository.findById(pID);
-      Product product = p.orElseThrow( () -> new Exception("Produto não encontrado") );
+      Product product = p.orElseThrow( () -> new EntityNotFoundException("Produto não encontrado") );
 
       StockKey stockID = new StockKey(bID,pID);
 
@@ -65,7 +67,7 @@ public class StockService {
       return stockRepository.save(stock);
 
     } catch (IllegalArgumentException e){
-      throw new Exception("Erro adicionando produto!");
+      throw new ArgumentInvalidException("Foi passado um id inválido");
     }
   }
   public Set<Product> addProducts(String branchID, Set<String> productID) throws Exception {
@@ -78,39 +80,22 @@ public class StockService {
       UUID bID = UUID.fromString(branchID);
       UUID pID = UUID.fromString(productID);
       Optional<Branch> b = branchRepository.findById(bID);
-      Branch branch = b.orElseThrow( () -> new Exception("Filial não encontrada") );
+      Branch branch = b.orElseThrow( () -> new EntityNotFoundException("Filial não encontrada") );
       Optional<Product> p = productRepository.findById(bID);
-      Product product = p.orElseThrow( () -> new Exception("Produto não encontrado") );
+      Product product = p.orElseThrow( () -> new EntityNotFoundException("Produto não encontrado") );
 
       StockKey stockID = new StockKey(bID,pID);
 
       Optional<Stock> s = stockRepository.findById(stockID);
-      Stock stock = s.orElseThrow( () -> new Exception("Não tem este produto nesta filial!") );
+      Stock stock = s.orElseThrow( () -> new EntityNotFoundException("Não tem este produto nesta filial!") );
 
       int currentQuantity = stock.getQuantity();
       stock.setQuantity(currentQuantity - quantity);
       stockRepository.save(stock);
 
     } catch (IllegalArgumentException e){
-      throw new Exception("Erro adicionando produto!");
+      throw new ArgumentInvalidException("Foi passado um id incorreto");
     }
-  }
-  public String removeProducts(String stockID, List<String> productID) throws Exception {
-    // TODO: Implement this
-    // try{
-    //   UUID id = UUID.fromString(stockID);
-    //   Optional<Stock> oStock = stockRepository.findById(id);
-    //     if (oStock.isPresent()){
-    //       stockRepository.delete(oStock.get());
-    //       return "Stock deleted!";
-    //     } else {
-    //       return "Could't delete the stock with this id!";
-    //     }
-    //
-    // } catch (IllegalArgumentException e){
-    //   throw new Exception("There was a problem with the delete operation!");
-    // }
-    return null;
   }
   public void clearStock(String branchID) throws Exception {
     try{
@@ -120,7 +105,7 @@ public class StockService {
         stockRepository.delete(entry);
       }
     } catch (IllegalArgumentException e){
-      throw new Exception("Foi passado um id incorreto");
+      throw new ArgumentInvalidException("Foi passado um id incorreto");
     }
 
   }

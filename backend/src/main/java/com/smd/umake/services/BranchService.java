@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.smd.umake.dtos.BranchDTO;
 import com.smd.umake.entities.Branch;
+import com.smd.umake.exceptions.ArgumentInvalidException;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.BranchRepository;
 
 @Service
@@ -28,9 +30,9 @@ public class BranchService {
       if(branch.isPresent()){
         return branch.get();
       }
-      return null;
+      throw new EntityNotFoundException("Filial não encontrada!");
     } catch (IllegalArgumentException e){
-      return null;
+      throw new ArgumentInvalidException("Id não é válido!");
     }
   }
   public Branch getBranchByName(String name) throws Exception {
@@ -38,7 +40,7 @@ public class BranchService {
     if (oBranch.isPresent()){
       return oBranch.get();
     }
-    return null;
+    throw new EntityNotFoundException("Filial não encontrada!");
   }
   public Branch createBranch(BranchDTO newBranch) throws Exception {
     int number = Integer.valueOf(newBranch.getNumber());
@@ -60,11 +62,11 @@ public class BranchService {
           branchRepository.delete(oBranch.get());
           return "Branch deleted!";
         } else {
-          return "Could't delete the branch with this id!";
+          throw new EntityNotFoundException("Filial não encontrada!");
         }
 
     } catch (IllegalArgumentException e){
-      throw new Exception("There was a problem with the delete operation!");
+      throw new ArgumentInvalidException("Id não é válido!");
     }
   }
 

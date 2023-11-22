@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smd.umake.entities.ProductCat;
+import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.ProductCatRepository;
 
 @Service
@@ -27,7 +28,10 @@ public class ProductCategoryService{
   public ProductCat getCategoryByName(String name) throws Exception {
     // WARN: tem que checar se n ta nulo
     Optional<ProductCat> category = categoryRepository.findDistinctCategoryByName(name);
-    return category.get();
+    if (category.isPresent()){
+      return category.get();
+    }
+    throw new EntityNotFoundException("Categoria não encontrada!");
   }
 
   public ProductCat createCategory(ProductCat newProduct) throws Exception {
@@ -46,7 +50,7 @@ public class ProductCategoryService{
       categoryRepository.delete(oCategory.get());
       return "Category deleted!";
     } else {
-      return "Could't delete the category with this id!";
+      throw new EntityNotFoundException("Categoria não encontrada para deleção!");
     }
   }
 
