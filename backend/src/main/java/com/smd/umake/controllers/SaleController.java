@@ -16,13 +16,25 @@ import com.smd.umake.dtos.SaleDTO;
 import com.smd.umake.entities.Sale;
 import com.smd.umake.services.SaleService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/sell")
+@Tag(name="Vendas")
 public class SaleController{
 
   @Autowired
   private SaleService saleService;
 
+  @Operation(summary="Retorna Venda pelo ID da venda", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Venda encontrada com sucesso"),
+    @ApiResponse(responseCode = "404", description="Venda não encontrada"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/{id}")
   public ResponseEntity<?> getSaleById(@PathVariable String id) throws Exception {
     Sale p = saleService.getSaleById(id);
@@ -33,6 +45,12 @@ public class SaleController{
       return new ResponseEntity<Sale> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Retorna vendas de uma filial especifica pelo ID da filial", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendas encontradas com sucesso"),
+    @ApiResponse(responseCode = "404", description="Filial não encontrada"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/branch/{id}")
   public ResponseEntity<?> getSalesByBranch(@PathVariable String id) throws Exception {
     List<Sale> p = saleService.getSalesByBranch(id);
@@ -43,6 +61,12 @@ public class SaleController{
       return new ResponseEntity<List<Sale>> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Retorna as vendas para um Cliente com base no ID dele", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendas retornadas com sucesso"),
+    @ApiResponse(responseCode = "404", description="Cliente não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/client/{id}")
   public ResponseEntity<?> getSalesByClient(@PathVariable String id) throws Exception {
     List<Sale> p = saleService.getSalesByClient(id);
@@ -53,6 +77,12 @@ public class SaleController{
       return new ResponseEntity<List<Sale>> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Retorna as vendas de um vendedor com base no ID dele", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendas retornadas com sucesso"),
+    @ApiResponse(responseCode = "404", description="Vendedor não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/seller/{id}")
   public ResponseEntity<?> getSalesBySeller(@PathVariable String id) throws Exception {
     List<Sale> p = saleService.getSalesBySeller(id);
@@ -63,6 +93,12 @@ public class SaleController{
       return new ResponseEntity<List<Sale>> (p,HttpStatus.OK);
     }
   }
+
+  @Operation(summary="Retorna todas as vendas", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendas retornadas com sucesso"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("")
   public ResponseEntity<?> getSales() throws Exception {
     List<Sale> p = saleService.getSales();
@@ -73,6 +109,13 @@ public class SaleController{
       return new ResponseEntity<List<Sale>> (p,HttpStatus.OK);
     }
   }
+
+  @Operation(summary="Deleta uma venda com base no ID", method="DELETE")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Venda deletada com sucesso"),
+    @ApiResponse(responseCode = "404", description="Venda não encontrada"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @DeleteMapping("/{id}")
   public ResponseEntity<String> deleteSaleById(@PathVariable String id) throws Exception {
     // TODO: Isso n deve retornar uma string pois assim sempre vamos enviar OK
@@ -80,6 +123,12 @@ public class SaleController{
     String result = saleService.deleteSale(id);
     return new ResponseEntity<String>(result,HttpStatus.OK);
   }
+
+  @Operation(summary="Cria uma venda", method="POST")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Venda criada com sucesso"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @PostMapping("/")
   public ResponseEntity<?> addSale(@RequestBody SaleDTO  newSale) throws Exception{
     Sale sale = saleService.createSale(newSale);
