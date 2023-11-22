@@ -18,13 +18,25 @@ import com.smd.umake.dtos.SellerDTO;
 import com.smd.umake.entities.Seller;
 import com.smd.umake.services.SellerService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/v1/seller")
+@Tag(name="Vendedor")
 public class SellerController{
 
   @Autowired
   private SellerService sellerService;
 
+  @Operation(summary="Retorna um Vendedor pelo ID", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedor encontrado e retornado com sucesso"),
+    @ApiResponse(responseCode = "404", description="Vendedor não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/{id}")
   public ResponseEntity<Seller> getSellerById(@PathVariable String id) throws Exception {
     Seller p = sellerService.getSellerById(id);
@@ -36,6 +48,12 @@ public class SellerController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Retorna um Vendedor pelo Nome", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedor encontrado e retornado com sucesso"),
+    @ApiResponse(responseCode = "404", description="Vendedor não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("/")
   public ResponseEntity<Seller> getSellerByName(@RequestParam("name") String name) throws Exception {
     Seller p = sellerService.getSellerByName(name);
@@ -45,6 +63,11 @@ public class SellerController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Retorna uma lista com todos os vendedores", method="GET")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedores encontrados e retornados com sucesso"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @GetMapping("")
   public ResponseEntity<List<Seller>> getSellers() throws Exception {
     List<Seller> p = sellerService.getSellers();
@@ -54,11 +77,22 @@ public class SellerController{
       return new ResponseEntity<> (p,HttpStatus.OK);
     }
   }
+  @Operation(summary="Deleta um Vendedor pelo ID", method="DELETE")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedor deletado com sucesso"),
+    @ApiResponse(responseCode = "404", description="Vendedor não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @DeleteMapping("/{id}")
   public ResponseEntity<String> deleteSellerById(@PathVariable String id) throws Exception {
     String result = sellerService.deleteSeller(id);
     return new ResponseEntity<String>(result,HttpStatus.OK);
   }
+  @Operation(summary="Cria um Vendedor", method="POST")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedor criado com sucesso"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
   @PostMapping("/")
   public ResponseEntity<Seller> addSeller(@RequestBody SellerDTO  newSeller) throws Exception{
     Seller cli = sellerService.createSeller(newSeller);
