@@ -3,6 +3,7 @@ version: '3'
 services:
   backend:
     container_name: mayk-backend
+    restart: always
     build:
       context: ./backend/
     image: 'maykshop'
@@ -23,6 +24,10 @@ services:
     image: 'postgres:16.1-alpine'
     container_name: db
     restart: always
+    expose:
+      - ${DB_PORT}
+    ports:
+      - ${DB_PORT}:5432
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
