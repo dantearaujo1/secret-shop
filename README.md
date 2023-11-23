@@ -14,9 +14,13 @@ Um sistema simples de vendas de loja de maquiagem feito para a disciplina de Ban
 
 * **Tenha o Docker Compose Plugin instalado**
 
-    Cenário 1: Instale o [Docker Desktop][docker] ai ele ja vem com o Docker Compose
+    Cenário 1: Não tem nada baixado, nem docker nem docker compose
 
-    Cenário 2: Instale o Plugin [Compose][docker-compose]
+    - Instale o [Docker Desktop][docker] ai ele ja vem com o Docker Compose
+
+    Cenário 2: Tem o docker, mas n tem o docker compose
+
+    - Instale o Plugin [Compose][docker-compose]
 
 
 ### Instalação
@@ -42,53 +46,51 @@ Um sistema simples de vendas de loja de maquiagem feito para a disciplina de Ban
 
 Acessando o back:
 
-Link: [API][http://locahost:6969/api/v1/product]
+Link: [API]( http://locahost:6969/api/v1/product )
 
-Prefere ver o swagger? Link: [Swagger UI][http://localhost:6969/swagger-ui/index.html]
+Prefere ver o swagger? Link: [Swagger UI]( http://localhost:6969/swagger-ui/index.html )
 
 ** Atenção: ** O Swagger contem todas as rotas da API
 
 
 ## Documentação adicional e agradecimento
 
-### Implementações de Requisito de Trabalho
-
-
-### Estrutura do projeto
 
 #### Requisitos
 
 ---
 
-| Requisito                          | Status   | ENDPOINT/DESC                   | METODO |
-|-----------                         |--------  |-----                            |-----   |
-| 5 Tabelas                          | OK       |                                 |        |
-| 5 PK                               | OK       |                                 |        |
-| 3 FK                               | OK       |                                 |        |
-|-----------                         |--------  |-----                            |-----   |
-| 5 SELECT                           | OK       |                                 |        |
-|-----------                         |--------  |-----                            |-----   |
-| 1 SELECT VENDEDOR                  | OK       | /api/v1/seller                  | GET    |
-| 1 SELECT VENDAL                    | OK       | /api/v1/sell                    | GET    |
-| 1 SELECT PRODUTO                   | OK       | /api/v1/product                 | GET    |
-| 1 SELECT CLIENTE                   | OK       | /api/v1/client                  | GET    |
-| 1 SELECT FILIAL                    | OK       | /api/v1/branch                  | GET    |
-|-----------                         |--------  |-----                            |-----   |
-| 3 INSERT                           |          |                                 |        |
-|-----------                         |--------  |-----                            |-----   |
-| 1 INSERT VENDEDOR                  |  OK      | /api/v1/seller/                 | POST   |
-| 1 INSERT PRODUTO                   |  OK      | /api/v1/product                 | POST   |
-| 1 INSERT FILIAL                    |  OK      | /api/v1/branch/                 | POST   |
-|-----------                         |--------  |-----                            |-----   |
-| 2 UPDATE                           |          |                                 |        |
-|-----------                         |--------  |-----                            |-----   |
-| 1 UPDATE VENDEDOR                  |  --      | /api/v1/seller/{id}             | PATCH  |
-| 1 UPDATE CLIENTE                   |  --      | /api/v1/client/{id}             | PATCH  |
-|-----------                         |--------  |-----                            |-----   |
-| 2 DELETE                           |          |                                 |        |
-|-----------                         |--------  |-----                            |-----   |
-| 1 DELETE VENDEDOR                  |  OK      | /api/v1/seller/{id}             | DELETE |
-| 1 DELETE PRODUTO                   |  OK      | /api/v1/client/{id}             | DELETE |
+| Requisito                          | Status   | ENDPOINT/DESC                   | METODO                                             |
+|-----------                         |--------  |-----                            |-----                                               |
+| 5 Tabelas                          | OK       |                                 |                                                    |
+| 5 PK                               | OK       |                                 |                                                    |
+| 3 FK                               | OK       |                                 |                                                    |
+|-----------                         |--------  |-----                            |-----                                               |
+| 5 SELECT                           | OK       |                                 |                                                    |
+|-----------                         |--------  |-----                            |-----                                               |
+| 1 SELECT VENDEDOR                  | OK       | /api/v1/seller                  | [ GET ]( http://localhost:6969/api/v1/seller )     |
+| 1 SELECT VENDAL                    | OK       | /api/v1/sell                    | [ GET ]( http://localhost:6969/api/v1/sell )       |
+| 1 SELECT PRODUTO                   | OK       | /api/v1/product                 | [ GET ]( http://localhost:6969/api/v1/product )    |
+| 1 SELECT CLIENTE                   | OK       | /api/v1/client                  | [ GET ]( http://localhost:6969/api/v1/client )     |
+| 1 SELECT FILIAL                    | OK       | /api/v1/branch                  | [ GET ]( http://localhost:6969/api/v1/branch )     |
+|-----------                         |--------  |-----                            |-----                                               |
+| 3 INSERT                           |          |                                 |                                                    |
+|-----------                         |--------  |-----                            |-----                                               |
+| 1 INSERT PRODUTO                   |  OK      | /api/v1/product/                | POST                                               |
+| 1 INSERT FILIAL                    |  OK      | /api/v1/branch/                 | POST                                               |
+|-----------                         |--------  |-----                            |-----                                               |
+| 2 UPDATE                           |          |                                 |                                                    |
+|-----------                         |--------  |-----                            |-----                                               |
+| 1 UPDATE VENDEDOR                  |  --      | /api/v1/seller/{id}             | PATCH                                              |
+| 1 UPDATE CLIENTE                   |  --      | /api/v1/client/{id}             | PATCH                                              |
+|-----------                         |--------  |-----                            |-----                                               |
+| 2 DELETE                           |          |                                 |                                                    |
+|-----------                         |--------  |-----                            |-----                                               |
+| 1 DELETE VENDEDOR                  |  OK      | /api/v1/seller/{id}             | DELETE                                             |
+| 1 DELETE PRODUTO                   |  OK      | /api/v1/client/{id}             | DELETE                                             |
+
+
+### Estrutura do projeto
 
 ```
 .
