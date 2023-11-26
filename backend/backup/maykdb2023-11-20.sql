@@ -17,16 +17,16 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: dante
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
 -- *not* creating schema, since initdb creates it
 
 
-ALTER SCHEMA public OWNER TO dante;
+ALTER SCHEMA public OWNER TO postgres;
 
 --
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: dante
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
 --
 
 COMMENT ON SCHEMA public IS '';
@@ -113,6 +113,7 @@ ALTER TABLE public.product_cat OWNER TO postgres;
 
 CREATE TABLE public.sale (
     id_sale uuid NOT NULL,
+    total numeric(38,2),
     id_branch uuid,
     id_client uuid,
     id_seller uuid
@@ -172,6 +173,8 @@ COPY public.branch (id_branch, cep, city, name, number, state, street) FROM stdi
 --
 
 COPY public.client (id_client, name) FROM stdin;
+612917e2-0f0e-477a-abdc-879d9d85380d	Dante
+f368c4d5-80c2-435e-a5c6-2b26612fa98e	Luis Eduardo
 \.
 
 
@@ -180,6 +183,7 @@ COPY public.client (id_client, name) FROM stdin;
 --
 
 COPY public.client_contact (phone_number, ddd, id_client) FROM stdin;
+996105145	85	612917e2-0f0e-477a-abdc-879d9d85380d
 \.
 
 
@@ -213,7 +217,7 @@ af064d9d-a81d-48bc-8f6f-989ccaf8a5cf		Perfume
 -- Data for Name: sale; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.sale (id_sale, id_branch, id_client, id_seller) FROM stdin;
+COPY public.sale (id_sale, total, id_branch, id_client, id_seller) FROM stdin;
 \.
 
 
@@ -230,6 +234,8 @@ COPY public.sale_product (id_product, id_sale, quantity) FROM stdin;
 --
 
 COPY public.seller (id_seller, name) FROM stdin;
+f39cf9fc-93de-4207-b985-9fbc811aac4c	Drielle
+0b60b5eb-da5d-4991-a935-6061801d72b5	Manoel
 \.
 
 
@@ -386,7 +392,7 @@ ALTER TABLE ONLY public.stock
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: dante
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
 
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
