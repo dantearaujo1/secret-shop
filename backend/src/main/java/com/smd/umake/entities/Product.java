@@ -53,7 +53,7 @@ public class Product{
 
 
   @OneToMany(mappedBy = "product")
-  private List<SaleProduct> sales;
+  private List<SaleProduct> sale_products;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "product")

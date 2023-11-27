@@ -48,6 +48,6 @@ public class Sale{
   private BigDecimal total;
 
   @OneToMany(mappedBy = "sale")
-  private List<SaleProduct> sale_product;
+  private List<SaleProduct> sale_products;
 
 }

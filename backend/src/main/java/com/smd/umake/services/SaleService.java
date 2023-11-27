@@ -1,5 +1,6 @@
 package com.smd.umake.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -7,15 +8,20 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smd.umake.dtos.ProductSaleDTO;
 import com.smd.umake.dtos.SaleDTO;
 import com.smd.umake.entities.Branch;
 import com.smd.umake.entities.Client;
+import com.smd.umake.entities.Product;
 import com.smd.umake.entities.Sale;
+import com.smd.umake.entities.SaleProduct;
+import com.smd.umake.entities.SaleProductKey;
 import com.smd.umake.entities.Seller;
 import com.smd.umake.exceptions.ArgumentInvalidException;
 import com.smd.umake.exceptions.EntityNotFoundException;
 import com.smd.umake.repositories.BranchRepository;
 import com.smd.umake.repositories.ClientRepository;
+import com.smd.umake.repositories.ProductRepository;
 import com.smd.umake.repositories.SaleRepository;
 import com.smd.umake.repositories.SellerRepository;
 
@@ -30,6 +36,8 @@ public class SaleService {
   private BranchRepository branchRepository;
   @Autowired
   private ClientRepository clientRepository;
+  @Autowired
+  private ProductRepository productRepository;
 
   public Sale getSaleById(String id) throws Exception {
     // TODO: checar string vazia
@@ -115,6 +123,21 @@ public class SaleService {
         throw new EntityNotFoundException("Cliente não encontrado");
       }
 
+      List<SaleProduct> products = new ArrayList<SaleProduct>();
+
+      for (ProductSaleDTO var : newSale.getSale_products()) {
+        UUID id = UUID.fromString(var.getProductID());
+        int quantity = var.getQuantity();
+        Optional<Product> oP = productRepository.findById(id);
+        if(oP.isPresent()){
+          Product p = oP.get();
+          SaleProductKey key = new SaleProductKey(sale.getId(), p.getId());
+          SaleProduct sp = new SaleProduct(key,p,sale,quantity);
+          products.add(sp);
+
+        }
+      }
+      sale.setSale_products(products);
       sale.setTotal(newSale.getTotal());
 
       Sale dSale = saleRepository.save(sale);

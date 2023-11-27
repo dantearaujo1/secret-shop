@@ -16,7 +16,7 @@ import lombok.Setter;
 public class ProductSaleDTO {
 
   @NotEmpty
-  private String categoryID;
+  private String productID;
 
   @NotEmpty
   @Min(0)
