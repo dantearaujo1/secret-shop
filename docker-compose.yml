@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+  app:
+    container_name: flutter_app
+    restart: unless-stopped
+    build:
+      context: ./bd_project/
+    depends_on:
+      - db
+      - backend
+    expose:
+      - 46843
+    ports:
+      - 46843:46843
+    command:
+      sh -c "flutter pub get && flutter run -d web-server --web-renderer=auto --web-port 46843 --web-hostname 0.0.0.0"
   backend:
     container_name: mayk-backend
     restart: always
