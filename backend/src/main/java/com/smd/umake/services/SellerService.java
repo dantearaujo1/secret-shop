@@ -63,5 +63,22 @@ public class SellerService {
       throw new ArgumentInvalidException("Id não válido!");
     }
   }
+  public Seller updateSeller(String sellerID, SellerDTO updatedData) throws Exception {
+    try {
+      UUID id = UUID.fromString(sellerID);
+      Optional<Seller> oSeller = sellerRepository.findById(id);
+      if (oSeller.isPresent()){
+        Seller s = oSeller.get();
+        s.setName(updatedData.getName());
+        sellerRepository.save(s);
+        return s;
+      } else {
+        throw new EntityNotFoundException("Vendedor não encontrado!");
+      }
+
+    } catch (IllegalArgumentException e){
+      throw new ArgumentInvalidException("Id não válido!");
+    }
+  }
 
 }

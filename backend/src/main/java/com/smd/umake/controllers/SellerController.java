@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,14 +104,19 @@ public class SellerController{
     }
 
   }
-  // @PatchMapping("/{id}")
-  // public ResponseEntity<Seller> updatePartialSellerById(@PathVariable UUID id, @RequestBody SellerDTO updatedData) throws Exception {
-  //   Seller prod = saleService.updatePartialSeller(id, updatedData);
-  //   if (prod == null){
-  //     throw new Exception();
-  //   } else {
-  //     return new ResponseEntity<Seller>(prod, HttpStatus.CREATED);
-  //   }
-  // }
+  @Operation(summary="Atualiza um vendedor", method="PUT")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Vendedor atualizado com sucesso"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
+  @PutMapping("/{id}")
+  public ResponseEntity<Seller> updateSellerById(@PathVariable String id, @RequestBody SellerDTO updatedData) throws Exception {
+    Seller prod = sellerService.updateSeller(id, updatedData);
+    if (prod == null){
+      throw new Exception();
+    } else {
+      return new ResponseEntity<Seller>(prod, HttpStatus.CREATED);
+    }
+  }
 
 }

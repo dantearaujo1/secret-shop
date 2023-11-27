@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smd.umake.dtos.CategoryDTO;
 import com.smd.umake.dtos.ProductDTO;
 import com.smd.umake.entities.Product;
 import com.smd.umake.entities.ProductCat;
@@ -122,7 +124,7 @@ public class ProductController{
     if (prod == null){
       throw new Exception();
     } else {
-      return new ResponseEntity<Product>(prod, HttpStatus.CREATED);
+      return new ResponseEntity<Product>(prod, HttpStatus.OK);
     }
   }
 
@@ -155,6 +157,7 @@ public class ProductController{
       return new ResponseEntity<> (c,HttpStatus.OK);
     }
   }
+
   @Operation(summary="Categoria retornada pelo ID", method="GET")
   @ApiResponses( value = {
     @ApiResponse(responseCode = "200", description="Categoria encontrada e retornada com sucesso"),
@@ -171,6 +174,7 @@ public class ProductController{
       return new ResponseEntity<> (c,HttpStatus.OK);
     }
   }
+
   @Operation(summary="Deleta categoria pelo ID", method="DELETE")
   @ApiResponses( value = {
     @ApiResponse(responseCode = "200", description="Categoria deletada com sucesso"),
@@ -184,13 +188,14 @@ public class ProductController{
     String result = categoryService.deleteCategory(id);
     return result;
   }
+
   @Operation(summary="Cria categoria", method="POST")
   @ApiResponses( value = {
     @ApiResponse(responseCode = "200", description="Categoria criada e retornada com sucesso"),
     @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
   } )
   @PostMapping("/category")
-  public ResponseEntity<ProductCat> addCategory(@RequestBody ProductCat  newCategory) throws Exception{
+  public ResponseEntity<ProductCat> addCategory(@RequestBody CategoryDTO  newCategory) throws Exception{
     ProductCat cat = categoryService.createCategory(newCategory);
     if (cat == null){
       throw new Exception();
@@ -198,6 +203,38 @@ public class ProductController{
       return new ResponseEntity<ProductCat>(cat, HttpStatus.CREATED);
     }
 
+  }
+
+  @Operation(summary="Atualiza uma categoria parcialmente por meio do seu ID", method="PATCH")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Categoria atualizada e retornado com sucesso"),
+    @ApiResponse(responseCode = "404", description="Produto não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
+  @PatchMapping("/category/{id}")
+  public ResponseEntity<ProductCat> updatePartialCategoryById(@PathVariable String id, @RequestBody CategoryDTO updatedData) throws Exception {
+    ProductCat prod = categoryService.updatePartialCategory(id, updatedData);
+    if (prod == null){
+      throw new Exception();
+    } else {
+      return new ResponseEntity<ProductCat>(prod, HttpStatus.CREATED);
+    }
+  }
+
+  @Operation(summary="Atualiza uma categoria por meio do seu ID", method="PATCH")
+  @ApiResponses( value = {
+    @ApiResponse(responseCode = "200", description="Categoria atualizada e retornado com sucesso"),
+    @ApiResponse(responseCode = "404", description="Produto não encontrado"),
+    @ApiResponse(responseCode = "400", description="Parâmetros inválidos"),
+  } )
+  @PutMapping("/category/{id}")
+  public ResponseEntity<ProductCat> updateCategoryById(@PathVariable String id, @RequestBody CategoryDTO updatedData) throws Exception {
+    ProductCat prod = categoryService.updateCategory(id, updatedData);
+    if (prod == null){
+      throw new Exception();
+    } else {
+      return new ResponseEntity<ProductCat>(prod, HttpStatus.CREATED);
+    }
   }
 
 
