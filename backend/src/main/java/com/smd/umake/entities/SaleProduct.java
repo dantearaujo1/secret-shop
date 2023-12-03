@@ -1,5 +1,7 @@
 package com.smd.umake.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -23,6 +25,7 @@ public class SaleProduct{
   @EmbeddedId
   SaleProductKey id;
 
+  @JsonBackReference
   @ManyToOne
   @MapsId("id")
   @JoinColumn(name = "id_product")
@@ -31,6 +34,7 @@ public class SaleProduct{
   @ManyToOne
   @MapsId("id")
   @JoinColumn(name = "id_sale")
+  @JsonBackReference
   Sale sale;
 
   int quantity;

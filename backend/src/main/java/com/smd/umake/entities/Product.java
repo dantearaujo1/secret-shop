@@ -52,6 +52,7 @@ public class Product{
   private String brand;
 
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<SaleProduct> sale_products;
 

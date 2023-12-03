@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,7 @@ public class Seller{
   @Column(name="name", length=60, nullable=false)
   private String name;
 
+  @JsonManagedReference
   @OneToMany(mappedBy="seller",cascade=CascadeType.ALL)
   private Set<Sale> sales = new HashSet<>();
 }

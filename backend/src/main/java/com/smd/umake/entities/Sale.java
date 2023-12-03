@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,14 +35,17 @@ public class Sale{
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
+  @JsonBackReference
   @ManyToOne(fetch= FetchType.LAZY)
   @JoinColumn(name="id_seller")
   private Seller seller;
 
+  @JsonBackReference
   @ManyToOne(fetch= FetchType.LAZY)
   @JoinColumn(name="id_client")
   private Client client;
 
+  @JsonBackReference
   @ManyToOne(fetch= FetchType.LAZY)
   @JoinColumn(name="id_branch")
   private Branch branch;
@@ -47,6 +53,7 @@ public class Sale{
   @Column(name="total")
   private BigDecimal total;
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "sale")
   private List<SaleProduct> sale_products;
 
