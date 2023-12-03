@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:web_bd_system/my_home_page.dart';
 
@@ -19,9 +18,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(
-        title: 'Secret Beaut',
-      ),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

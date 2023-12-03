@@ -16,9 +16,7 @@ import 'package:web_bd_system/sellers/register/bloc/sellers_register_bloc.dart';
 import 'package:web_bd_system/sellers/register/sellers_register.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
