@@ -5,7 +5,7 @@ services:
     container_name: flutter_app
     restart: unless-stopped
     build:
-      context: ./bd_project/
+      context: ./web_bd_system/
     depends_on:
       - db
       - backend
