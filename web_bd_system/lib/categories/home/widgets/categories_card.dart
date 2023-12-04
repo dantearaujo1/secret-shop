@@ -77,16 +77,19 @@ class CategoriesCard extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  context
-                      .read<CategoriesBloc>()
-                      .add(CategoriesRequestDeleteEvent(id));
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  size: 24,
-                  color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: IconButton(
+                  onPressed: () {
+                    context
+                        .read<CategoriesBloc>()
+                        .add(CategoriesRequestDeleteEvent(id));
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                    size: 24,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ],

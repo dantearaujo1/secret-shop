@@ -4,6 +4,7 @@ import 'package:web_bd_system/categories/update/api/categories_update_model.dart
 import 'package:web_bd_system/categories/update/bloc/categories_update_bloc.dart';
 import 'package:web_bd_system/categories/update/bloc/categories_update_event.dart';
 import 'package:web_bd_system/categories/update/bloc/categories_update_state.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class CategoriesUpdate extends StatelessWidget {
   CategoriesUpdate({super.key, required this.categoryID});
@@ -82,7 +83,7 @@ class CategoriesUpdate extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black12,
+                    color: AppColors.primaryColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),

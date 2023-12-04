@@ -6,6 +6,7 @@ import 'package:web_bd_system/clients/home/bloc/client_bloc.dart';
 import 'package:web_bd_system/clients/home/bloc/client_event.dart';
 import 'package:web_bd_system/clients/home/bloc/client_state.dart';
 import 'package:web_bd_system/clients/home/widgets/client_card.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 import 'package:web_bd_system/widgets/error_page.dart';
 import 'package:web_bd_system/widgets/loading_page.dart';
 
@@ -43,8 +44,8 @@ class Clients extends StatelessWidget {
                 final models = (state as ClientSuccessState).clients;
 
                 return LiquidPullToRefresh(
-                  color: Colors.black12,
-                  backgroundColor: Colors.black12,
+                  color: AppColors.primaryColor,
+                  backgroundColor: AppColors.primaryColor,
                   onRefresh: () async {
                     context.read<ClientBloc>().add(ClientRequestEvent());
                   },
@@ -57,10 +58,13 @@ class Clients extends StatelessWidget {
                           ? '(${model.contacts.first.ddd}) ${model.contacts.first.phoneNumber}'
                           : 'Sem contato';
 
-                      return ClientCard(
-                        id: model.id,
-                        title: model.name,
-                        description: contact,
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 16 : 0),
+                        child: ClientCard(
+                          id: model.id,
+                          title: model.name,
+                          description: contact,
+                        ),
                       );
                     },
                   ),

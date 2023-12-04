@@ -4,6 +4,7 @@ import 'package:web_bd_system/sellers/register/api/sellers_post_model.dart';
 import 'package:web_bd_system/sellers/register/bloc/sellers_register_bloc.dart';
 import 'package:web_bd_system/sellers/register/bloc/sellers_register_event.dart';
 import 'package:web_bd_system/sellers/register/bloc/sellers_register_state.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class SellersRegister extends StatelessWidget {
   SellersRegister({super.key});
@@ -61,7 +62,7 @@ class SellersRegister extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black12,
+                    color: AppColors.primaryColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),

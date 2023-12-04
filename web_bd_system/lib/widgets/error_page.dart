@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({
@@ -30,7 +31,7 @@ class ErrorPage extends StatelessWidget {
               child: const Text(
                 'Tentar novamente',
                 softWrap: true,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: AppColors.primaryColor),
               ),
             ),
           ],
