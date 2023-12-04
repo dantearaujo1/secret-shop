@@ -51,7 +51,7 @@ public class ProductCategoryService{
       if (oCategory.isPresent()){
         ProductCat c = oCategory.get();
         c.setName(updated.getName());
-        c.setDescription(updated.getName());
+        c.setDescription(updated.getDescription());
         categoryRepository.save(c);
         return c;
       } else {
