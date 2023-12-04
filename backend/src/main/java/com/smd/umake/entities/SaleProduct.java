@@ -2,6 +2,7 @@ package com.smd.umake.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -26,12 +27,12 @@ public class SaleProduct{
   SaleProductKey id;
 
   @JsonBackReference
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   @MapsId("id")
   @JoinColumn(name = "id_product")
   Product product;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   @MapsId("id")
   @JoinColumn(name = "id_sale")
   @JsonBackReference
