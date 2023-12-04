@@ -4,6 +4,7 @@ import 'package:web_bd_system/clients/register/api/client_post_model.dart';
 import 'package:web_bd_system/clients/register/bloc/client_register_bloc.dart';
 import 'package:web_bd_system/clients/register/bloc/client_register_event.dart';
 import 'package:web_bd_system/clients/register/bloc/client_register_state.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class ClientRegister extends StatelessWidget {
   ClientRegister({super.key});
@@ -92,7 +93,7 @@ class ClientRegister extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black12,
+                    color: AppColors.primaryColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),

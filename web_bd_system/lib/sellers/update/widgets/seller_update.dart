@@ -4,6 +4,7 @@ import 'package:web_bd_system/sellers/update/api/sellers_update_model.dart';
 import 'package:web_bd_system/sellers/update/bloc/sellers_update_bloc.dart';
 import 'package:web_bd_system/sellers/update/bloc/sellers_update_event.dart';
 import 'package:web_bd_system/sellers/update/bloc/sellers_update_state.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class SellersUpdate extends StatelessWidget {
   SellersUpdate({super.key, required this.sellerID});
@@ -65,7 +66,7 @@ class SellersUpdate extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black12,
+                    color: AppColors.primaryColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),

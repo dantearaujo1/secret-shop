@@ -6,6 +6,7 @@ import 'package:web_bd_system/sales/bloc/sales_bloc.dart';
 import 'package:web_bd_system/sales/bloc/sales_event.dart';
 import 'package:web_bd_system/sales/bloc/sales_state.dart';
 import 'package:web_bd_system/sales/widgets/sales_card.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 import 'package:web_bd_system/widgets/error_page.dart';
 import 'package:web_bd_system/widgets/loading_page.dart';
 
@@ -43,8 +44,8 @@ class Sales extends StatelessWidget {
                 final models = (state as SalesSuccessState).sales;
 
                 return LiquidPullToRefresh(
-                  color: Colors.black12,
-                  backgroundColor: Colors.black12,
+                  color: AppColors.primaryColor,
+                  backgroundColor: AppColors.primaryColor,
                   onRefresh: () async {
                     context.read<SalesBloc>().add(SalesRequestEvent());
                   },
@@ -53,10 +54,13 @@ class Sales extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final model = models[index];
 
-                      return SalesCard(
-                        id: model.id,
-                        title: model.id,
-                        description: 'Valor: ${model.total}',
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 16 : 0),
+                        child: SalesCard(
+                          id: model.id,
+                          title: model.id,
+                          description: 'Valor: ${model.total}',
+                        ),
                       );
                     },
                   ),

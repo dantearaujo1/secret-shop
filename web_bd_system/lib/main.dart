@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_bd_system/my_home_page.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.black12,
+          seedColor: AppColors.primaryColor,
         ),
         useMaterial3: true,
       ),

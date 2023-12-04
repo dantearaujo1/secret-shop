@@ -6,6 +6,7 @@ import 'package:web_bd_system/sellers/home/bloc/sellers_bloc.dart';
 import 'package:web_bd_system/sellers/home/bloc/sellers_event.dart';
 import 'package:web_bd_system/sellers/home/bloc/sellers_state.dart';
 import 'package:web_bd_system/sellers/home/widgets/sellers_card.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 import 'package:web_bd_system/widgets/error_page.dart';
 import 'package:web_bd_system/widgets/loading_page.dart';
 
@@ -15,7 +16,8 @@ class Sellers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SellersBloc(SellersServiceImpl())..add(SellersRequestEvent()),
+      create: (context) =>
+          SellersBloc(SellersServiceImpl())..add(SellersRequestEvent()),
       child: BlocListener<SellersBloc, SellersState>(
         listener: (context, state) {
           switch (state.runtimeType) {
@@ -39,8 +41,8 @@ class Sellers extends StatelessWidget {
                 final models = (state as SellersSuccessState).sellers;
 
                 return LiquidPullToRefresh(
-                  color: Colors.black12,
-                  backgroundColor: Colors.black12,
+                  color: AppColors.primaryColor,
+                  backgroundColor: AppColors.primaryColor,
                   onRefresh: () async {
                     context.read<SellersBloc>().add(SellersRequestEvent());
                   },
@@ -49,10 +51,13 @@ class Sellers extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final model = models[index];
 
-                      return SellersCard(
-                        id: model.id,
-                        title: model.name,
-                        description: model.id,
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 16 : 0),
+                        child: SellersCard(
+                          id: model.id,
+                          title: model.name,
+                          description: model.id,
+                        ),
                       );
                     },
                   ),
