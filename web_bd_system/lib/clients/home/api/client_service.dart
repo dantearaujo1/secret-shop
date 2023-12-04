@@ -11,7 +11,7 @@ final class ClientServiceImpl implements ClientService {
   Future<List<ClientModel>> getClients() async {
     final dio = Dio();
     final response = await dio.get(
-      'http://localhost:6969/api/v1/client',
+      'http://localhost/api/v1/client',
     );
     try {
       List<ClientModel> clients = (response.data as List)
@@ -24,11 +24,11 @@ final class ClientServiceImpl implements ClientService {
       throw TypeError();
     }
   }
-  
+
   @override
   Future<void> delete(String clientId) async {
     final dio = Dio();
-    final response = await dio.delete('http://localhost:6969/api/v1/client/$clientId');
+    final response = await dio.delete('http://localhost/api/v1/client/$clientId');
     if (response.statusCode == 200) {
       return Future.value();
     } else {

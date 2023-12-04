@@ -11,13 +11,13 @@ final class SellersUpdateServiceImpl implements SellersUpdateService {
   Future<String> update(SellersUpdateModel model) async {
     final dio = Dio();
     final id = model.id;
-    
+
     Map<String, dynamic> requestData = {
       "name": model.name,
     };
 
     final response = await dio.put(
-      'http://localhost:6969/api/v1/seller/$id',
+      'http://localhost/api/v1/seller/$id',
       data: requestData,
       options: Options(
         headers: {

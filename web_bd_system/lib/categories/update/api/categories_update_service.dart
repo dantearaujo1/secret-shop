@@ -11,7 +11,7 @@ final class CategoriesUpdateServiceImpl implements CategoriesUpdateService {
   Future<String> update(CategoriesUpdateModel model) async {
     final dio = Dio();
     final id = model.id;
-    
+
     Map<String, dynamic> requestData = {
       "categoryID": id,
       "name": model.name,
@@ -19,7 +19,7 @@ final class CategoriesUpdateServiceImpl implements CategoriesUpdateService {
     };
 
     final response = await dio.put(
-      'http://localhost:6969/api/v1/product/category/$id',
+      'http://localhost/api/v1/product/category/$id',
       data: requestData,
       options: Options(
         headers: {

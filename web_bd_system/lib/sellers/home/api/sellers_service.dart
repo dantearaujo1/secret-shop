@@ -11,7 +11,7 @@ final class SellersServiceImpl implements SellersService {
   Future<List<SellersModel>> getSellerss() async {
     final dio = Dio();
     final response = await dio.get(
-      'http://localhost:6969/api/v1/seller',
+      'http://localhost/api/v1/seller',
     );
     try {
       List<SellersModel> sellers = (response.data as List)
@@ -29,7 +29,7 @@ final class SellersServiceImpl implements SellersService {
   Future<void> delete(String sellersId) async {
     final dio = Dio();
     final response = await dio.delete(
-      'http://localhost:6969/api/v1/seller/$sellersId',
+      'http://localhost/api/v1/seller/$sellersId',
     );
     if (response.statusCode == 200) {
       return Future.value();

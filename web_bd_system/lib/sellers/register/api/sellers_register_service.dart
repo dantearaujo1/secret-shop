@@ -12,7 +12,7 @@ final class SellersRegisterServiceImpl implements SellersRegisterService {
     final dio = Dio();
     Map<String, dynamic> requestData = {"name": model.nome};
     final response = await dio.post(
-      'http://localhost:6969/api/v1/seller/',
+      'http://localhost/api/v1/seller/',
       data: requestData,
       options: Options(
         headers: {

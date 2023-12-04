@@ -10,7 +10,7 @@ final class SalesServiceImpl implements SalesService {
   Future<List<SalesModel>> getSales() async {
     final dio = Dio();
     final response = await dio.get(
-      'http://localhost:6969/api/v1/sell',
+      'http://localhost/api/v1/sell',
     );
     try {
       List<SalesModel> sales = (response.data as List)

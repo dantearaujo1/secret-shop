@@ -11,7 +11,7 @@ final class ProductsServiceImpl implements ProductsService {
   Future<List<ProductsModel>> getProducts() async {
     final dio = Dio();
     final response = await dio.get(
-      'http://localhost:6969/api/v1/product',
+      'http://localhost/api/v1/product',
     );
     try {
       List<ProductsModel> products = (response.data as List)
@@ -29,7 +29,7 @@ final class ProductsServiceImpl implements ProductsService {
   Future<void> delete(String productsId) async {
     final dio = Dio();
     final response =
-        await dio.delete('http://localhost:6969/api/v1/product/$productsId');
+        await dio.delete('http://localhost/api/v1/product/$productsId');
     if (response.statusCode == 200) {
       return Future.value();
     } else {

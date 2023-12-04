@@ -16,7 +16,7 @@ final class ClientRegisterServiceImpl implements ClientRegisterService {
       "phone": [model.phone],
     };
     final response = await dio.post(
-      'http://localhost:6969/api/v1/client/',
+      'http://localhost/api/v1/client/',
       data: requestData,
       options: Options(
         headers: {

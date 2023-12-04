@@ -13,7 +13,7 @@ final class CategoriesRegisterServiceImpl implements CategoriesRegisterService {
     final dio = Dio();
     const uuid = Uuid();
     final id = uuid.v4();
-    
+
     Map<String, dynamic> requestData = {
       "categoryID": id,
       "name": model.name,
@@ -21,7 +21,7 @@ final class CategoriesRegisterServiceImpl implements CategoriesRegisterService {
     };
 
     final response = await dio.post(
-      'http://localhost:6969/api/v1/product/category',
+      'http://localhost/api/v1/product/category',
       data: requestData,
       options: Options(
         headers: {

@@ -11,7 +11,7 @@ final class CategoriesServiceImpl implements CategoriesService {
   Future<List<CategoriesModel>> getCategories() async {
     final dio = Dio();
     final response = await dio.get(
-      'http://localhost:6969/api/v1/product/category',
+      'http://localhost/api/v1/product/category',
     );
     try {
       List<CategoriesModel> categories = (response.data as List)
@@ -29,7 +29,7 @@ final class CategoriesServiceImpl implements CategoriesService {
   Future<void> delete(String categoryId) async {
     final dio = Dio();
     final response = await dio
-        .delete('http://localhost:6969/api/v1/product/category/$categoryId');
+        .delete('http://localhost/api/v1/product/category/$categoryId');
     if (response.statusCode == 200) {
       return Future.value();
     } else {
