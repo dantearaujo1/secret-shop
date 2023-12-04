@@ -9,6 +9,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -53,11 +54,11 @@ public class Product{
 
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "product")
+  @OneToMany(mappedBy = "product",cascade= CascadeType.ALL)
   private List<SaleProduct> sale_products;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "product")
+  @OneToMany(mappedBy = "product",cascade= CascadeType.ALL)
   private Set<Stock> stock = new HashSet<>();
 
   @JsonBackReference

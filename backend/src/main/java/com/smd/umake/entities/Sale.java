@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,7 +55,7 @@ public class Sale{
   private BigDecimal total;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "sale")
+  @OneToMany(mappedBy = "sale",cascade = CascadeType.ALL)
   private List<SaleProduct> sale_products;
 
 }
