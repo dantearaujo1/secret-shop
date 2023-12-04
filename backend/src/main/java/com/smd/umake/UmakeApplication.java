@@ -24,7 +24,7 @@ public class UmakeApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*");
+        registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
 				registry.addMapping("/api/v1/").allowedOrigins("http://localhost:46843");
 				registry.addMapping("/api/v1/").allowedOrigins("http://app:46843");
 
