@@ -4,14 +4,15 @@ import 'package:web_bd_system/categories/register/api/categories_post_model.dart
 import 'package:web_bd_system/categories/register/bloc/categories_register_bloc.dart';
 import 'package:web_bd_system/categories/register/bloc/categories_register_event.dart';
 import 'package:web_bd_system/categories/register/bloc/categories_register_state.dart';
-
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class CategoriesRegister extends StatelessWidget {
   CategoriesRegister({super.key});
 
   final TextEditingController _textFieldControllerName =
       TextEditingController();
-  final TextEditingController _textFieldControllerDescription = TextEditingController();
+  final TextEditingController _textFieldControllerDescription =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,8 @@ class CategoriesRegister extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.all(24.0),
-              child:
-                  Text('Cadastro de Categorias', style: TextStyle(fontSize: 20)),
+              child: Text('Cadastro de Categorias',
+                  style: TextStyle(fontSize: 20)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -77,7 +78,7 @@ class CategoriesRegister extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black12,
+                    color: AppColors.primaryColor,
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(20.0),

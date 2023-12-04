@@ -6,6 +6,7 @@ import 'package:web_bd_system/categories/home/bloc/categories_bloc.dart';
 import 'package:web_bd_system/categories/home/bloc/categories_event.dart';
 import 'package:web_bd_system/categories/home/bloc/categories_state.dart';
 import 'package:web_bd_system/categories/home/widgets/categories_card.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 import 'package:web_bd_system/widgets/error_page.dart';
 import 'package:web_bd_system/widgets/loading_page.dart';
 
@@ -44,8 +45,8 @@ class Categories extends StatelessWidget {
                 final models = (state as CategoriesSuccessState).categories;
 
                 return LiquidPullToRefresh(
-                  color: Colors.black12,
-                  backgroundColor: Colors.black12,
+                  color: AppColors.primaryColor,
+                  backgroundColor: AppColors.primaryColor,
                   onRefresh: () async {
                     context
                         .read<CategoriesBloc>()
@@ -60,10 +61,13 @@ class Categories extends StatelessWidget {
                           ? model.description
                           : 'Sem descrição';
 
-                      return CategoriesCard(
-                        id: model.id,
-                        title: model.name,
-                        description: description,
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 16.0 : 0),
+                        child: CategoriesCard(
+                          id: model.id,
+                          title: model.name,
+                          description: description,
+                        ),
                       );
                     },
                   ),

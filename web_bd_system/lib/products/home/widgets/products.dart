@@ -6,6 +6,7 @@ import 'package:web_bd_system/products/home/bloc/products_bloc.dart';
 import 'package:web_bd_system/products/home/bloc/products_event.dart';
 import 'package:web_bd_system/products/home/bloc/produts_state.dart';
 import 'package:web_bd_system/products/home/widgets/products_card.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 import 'package:web_bd_system/widgets/error_page.dart';
 import 'package:web_bd_system/widgets/loading_page.dart';
 
@@ -35,16 +36,17 @@ class Products extends StatelessWidget {
               case ProductsErrorState:
                 return Builder(builder: (context) {
                   return ErrorPage(
-                    onPressed: () =>
-                        context.read<ProductsBloc>().add(ProductsRequestEvent()),
+                    onPressed: () => context
+                        .read<ProductsBloc>()
+                        .add(ProductsRequestEvent()),
                   );
                 });
               case ProductsSuccessState:
                 final models = (state as ProductsSuccessState).products;
 
                 return LiquidPullToRefresh(
-                  color: Colors.black12,
-                  backgroundColor: Colors.black12,
+                  color: AppColors.primaryColor,
+                  backgroundColor: AppColors.primaryColor,
                   onRefresh: () async {
                     context.read<ProductsBloc>().add(ProductsRequestEvent());
                   },
@@ -53,10 +55,13 @@ class Products extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final model = models[index];
 
-                      return ProductsCard(
-                        id: model.id,
-                        title: model.name,
-                        description: model.description,
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 18 : 0),
+                        child: ProductsCard(
+                          id: model.id,
+                          title: model.name,
+                          description: model.description,
+                        ),
                       );
                     },
                   ),

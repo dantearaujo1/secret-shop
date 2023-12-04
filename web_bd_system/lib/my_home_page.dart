@@ -14,6 +14,7 @@ import 'package:web_bd_system/sellers/home/widgets/sellers.dart';
 import 'package:web_bd_system/sellers/register/api/sellers_register_service.dart';
 import 'package:web_bd_system/sellers/register/bloc/sellers_register_bloc.dart';
 import 'package:web_bd_system/sellers/register/sellers_register.dart';
+import 'package:web_bd_system/utils/app_colors.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -105,7 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_setTitleBasedIndex()),
+        backgroundColor: AppColors.primaryColor,
+        title: Text(
+          _setTitleBasedIndex(),
+        ),
         actions: _shouldNotPresentAddButton.contains(_selectedIndex)
             ? []
             : [
@@ -123,17 +127,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
       ),
-      // floatingActionButton: ,
       body: Center(
         child: _widgetOptions[_selectedIndex],
       ),
       drawer: Drawer(
+        surfaceTintColor: Colors.white,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.black12,
+                color: AppColors.primaryColor,
               ),
               child: Text(
                 'Secret Beauty',
