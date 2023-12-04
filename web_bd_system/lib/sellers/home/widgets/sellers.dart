@@ -52,7 +52,7 @@ class Sellers extends StatelessWidget {
                       return SellersCard(
                         id: model.id,
                         title: model.name,
-                        description: '${model.sales.length} vendas',
+                        description: model.id,
                       );
                     },
                   ),

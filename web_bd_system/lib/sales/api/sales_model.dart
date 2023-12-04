@@ -1,15 +1,13 @@
 class SalesModel {
   final String id;
-  final String name;
-  final String description;
+  final double total;
 
-  SalesModel(this.id, this.name, this.description);
+  SalesModel(this.id, this.total);
 
   factory SalesModel.fromJson(Map<String, dynamic> json) {
     return SalesModel(
       json['id'],
-      json['name'],
-      json['description'],
+      json['total'],
     );
   }
 }

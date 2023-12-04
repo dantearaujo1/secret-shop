@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_bd_system/categories/update/api/categories_update_service.dart';
-import 'package:web_bd_system/categories/update/bloc/categories_update_bloc.dart';
-import 'package:web_bd_system/categories/update/widgets/categories_update.dart';
 import 'package:web_bd_system/sellers/home/bloc/sellers_bloc.dart';
 import 'package:web_bd_system/sellers/home/bloc/sellers_event.dart';
+import 'package:web_bd_system/sellers/update/api/sellers_update_service.dart';
+import 'package:web_bd_system/sellers/update/bloc/sellers_update_bloc.dart';
+import 'package:web_bd_system/sellers/update/widgets/seller_update.dart';
 
 class SellersCard extends StatelessWidget {
   const SellersCard({
@@ -64,10 +64,10 @@ class SellersCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => BlocProvider(
-                        create: (_) => CategoriesUpdateBloc(
-                          CategoriesUpdateServiceImpl(),
+                        create: (_) => SellersUpdateBloc(
+                          SellersUpdateServiceImpl(),
                         ),
-                        child: CategoriesUpdate(categoryID: id),
+                        child: SellersUpdate(sellerID: id),
                       ),
                     ),
                   );

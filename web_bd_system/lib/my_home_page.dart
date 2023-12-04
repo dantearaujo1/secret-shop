@@ -99,12 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  final _shouldNotPresentAddButton = [2, 4];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_setTitleBasedIndex()),
-        actions: _selectedIndex == 4
+        actions: _shouldNotPresentAddButton.contains(_selectedIndex)
             ? []
             : [
                 IconButton(

@@ -35,9 +35,8 @@ class Sales extends StatelessWidget {
               case SalesErrorState:
                 return Builder(builder: (context) {
                   return ErrorPage(
-                    onPressed: () => context
-                        .read<SalesBloc>()
-                        .add(SalesRequestEvent()),
+                    onPressed: () =>
+                        context.read<SalesBloc>().add(SalesRequestEvent()),
                   );
                 });
               case SalesSuccessState:
@@ -47,23 +46,17 @@ class Sales extends StatelessWidget {
                   color: Colors.black12,
                   backgroundColor: Colors.black12,
                   onRefresh: () async {
-                    context
-                        .read<SalesBloc>()
-                        .add(SalesRequestEvent());
+                    context.read<SalesBloc>().add(SalesRequestEvent());
                   },
                   child: ListView.builder(
                     itemCount: models.length,
                     itemBuilder: (BuildContext context, int index) {
                       final model = models[index];
 
-                      final description = model.description.isNotEmpty
-                          ? model.description
-                          : 'Sem descrição';
-
                       return SalesCard(
                         id: model.id,
-                        title: model.name,
-                        description: description,
+                        title: model.id,
+                        description: 'Valor: ${model.total}',
                       );
                     },
                   ),

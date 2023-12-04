@@ -33,7 +33,7 @@ class SellersUpdate extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(24.0),
               child: Text(
-                'Atualização de categorias',
+                'Atualização de vendedor',
                 style: TextStyle(fontSize: 20),
               ),
             ),
@@ -42,7 +42,7 @@ class SellersUpdate extends StatelessWidget {
               child: TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Digite o nome da categoria',
+                  labelText: 'Digite o o novo nome',
                 ),
                 controller: _textFieldControllerName,
               ),
