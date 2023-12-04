@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  app:
+    container_name: flutter_app
+    restart: unless-stopped
+    build:
+      context: ./web_bd_system/
+    depends_on:
+      - db
+      - backend
+    expose:
+      - 46843
+    # ports:
+    #   - 46843:46843
+    command:
+      sh -c "flutter pub get && flutter run -d web-server --web-renderer=auto --web-port 46843 --web-hostname 0.0.0.0"
+  backend:
+    container_name: mayk-backend
+    restart: always
+    build:
+      context: ./backend/
+    image: 'maykshop'
+    depends_on:
+      - db
+    expose:
+      - ${API_PORT_EXPOSED}
+    ports:
+      - ${API_PORT_EXPOSED}:${API_PORT}
+    environment:
+      - SPRING_DATASOURCE_URL=${DB_EXPOSED_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=${API_PORT}
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - db
+      - app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+  db:
+    image: 'postgres:16.1-alpine'
+    container_name: db
+    restart: always
+    expose:
+      - ${DB_PORT}
+    # ports:
+    #   - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ./backend/backup:/docker-entrypoint-initdb.d
