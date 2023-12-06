@@ -25,8 +25,8 @@ services:
       - db
     expose:
       - ${API_PORT_EXPOSED}
-    ports:
-      - ${API_PORT_EXPOSED}:${API_PORT}
+    # ports:
+    #   - ${API_PORT_EXPOSED}:${API_PORT}
     environment:
       - SPRING_DATASOURCE_URL=${DB_EXPOSED_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
